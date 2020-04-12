@@ -271,7 +271,7 @@ void mCoreTakeScreenshot(struct mCore* core) {
 	core->desiredVideoDimensions(core, &width, &height);
 	struct VFile* vf;
 #ifndef PSP2
-	vf = VDirFindNextAvailable(core->dirs.screenshot, core->dirs.baseName, "-", ".png", O_CREAT | O_TRUNC | O_WRONLY);
+	vf = VDirFindNextAvailable(core->dirs.screenshot, core->dirs.baseName, "-screenshot//", ".png", O_CREAT | O_TRUNC | O_WRONLY);
 #else
 	vf = VFileMemChunk(0, 0);
 #endif
@@ -281,6 +281,7 @@ void mCoreTakeScreenshot(struct mCore* core) {
 		png_structp png = PNGWriteOpen(vf);
 		png_infop info = PNGWriteHeader(png, width, height);
 		success = PNGWritePixels(png, width, height, stride, pixels);
+		
 		PNGWriteClose(png, info);
 #ifdef PSP2
 		void* data = vf->map(vf, 0, 0);
