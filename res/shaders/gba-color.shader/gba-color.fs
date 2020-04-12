@@ -4,14 +4,14 @@ uniform vec2 texSize;
 
 uniform float darken_screen;
 const float target_gamma = 2.2;
-const float display_gamma = 2.5;
+const float display_gamma = 2.2;
 const float sat = 1.0;
-const float lum = 0.99;
+const float lum = 1.0;
 const float contrast = 1.0;
 const vec3 bl = vec3(0.0, 0.0, 0.0);
-const vec3 r = vec3(0.84, 0.09, 0.15);
-const vec3 g = vec3(0.18, 0.67, 0.10);
-const vec3 b = vec3(0.0, 0.26, 0.73);
+const vec3 r = vec3(0.85, 0.10, 0.15);
+const vec3 g = vec3(0.19, 0.66, 0.06);
+const vec3 b = vec3(0.0, 0.23, 0.81);
 
 void main() {
 	vec4 screen = pow(texture2D(tex, texCoord), vec4(target_gamma + darken_screen)).rgba;
@@ -30,5 +30,5 @@ void main() {
 	color *= adjust;
 	screen = clamp(screen * lum, 0.0, 1.0);
 	screen = color * screen;
-	gl_FragColor = pow(screen, vec4(1.0 / display_gamma + (darken_screen * 0.125)));
+	gl_FragColor = pow(screen, vec4(1.0 / display_gamma));
 }
