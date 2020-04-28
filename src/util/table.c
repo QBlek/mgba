@@ -98,7 +98,7 @@ void TableDeinit(struct Table* table) {
 	table->table = 0;
 	table->tableSize = 0;
 }
-
+// Axis Second Value.
 void* TableLookup(const struct Table* table, uint32_t key) {
 	const struct TableList* list;
 	TABLE_LOOKUP_START(TABLE_COMPARATOR, list, key) {

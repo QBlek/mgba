@@ -42,7 +42,7 @@ static void _makeSectionName(const char* platform, char* sectionName, size_t len
 	snprintf(sectionName, len, "%s.input.%c%c%c%c", platform, type >> 24, type >> 16, type >> 8, type);
 	sectionName[len - 1] = '\0';
 }
-
+// Up key.
 static bool _getIntValue(const struct Configuration* config, const char* section, const char* key, int* value) {
 	const char* strValue = ConfigurationGetValue(config, section, key);
 	if (!strValue) {
@@ -154,7 +154,7 @@ static void _loadAxis(struct mInputMap* map, uint32_t type, const char* sectionN
 	if (!_getIntValue(config, sectionName, axisKey, &value)) {
 		return;
 	}
-
+	// Axis Second Value.
 	snprintf(axisKey, KEY_NAME_MAX, "axis%sAxis", axisName);
 	axisKey[KEY_NAME_MAX - 1] = '\0';
 	int axis;
@@ -189,7 +189,7 @@ static bool _loadHat(struct mInputMap* map, uint32_t type, const char* sectionNa
 	struct mInputHatBindings hatBindings = { -1, -1, -1, -1 };
 
 	bool found = false;
-	snprintf(hatKey, KEY_NAME_MAX, "hat%iUp", hatId);
+	snprintf(hatKey, KEY_NAME_MAX, "hat%iUp", hatId); // Up Key
 	found = _getIntValue(config, sectionName, hatKey, &hatBindings.up) || found;
 	snprintf(hatKey, KEY_NAME_MAX, "hat%iRight", hatId);
 	found = _getIntValue(config, sectionName, hatKey, &hatBindings.right) || found;
@@ -303,7 +303,7 @@ void _unbindAxis(uint32_t axis, void* dp, void* user) {
 		description->lowDirection = -1;
 	}
 }
-
+// load key setting problem.
 static bool _loadAll(struct mInputMap* map, uint32_t type, const char* sectionName, const struct Configuration* config) {
 	if (!ConfigurationHasSection(config, sectionName)) {
 		return false;
