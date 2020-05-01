@@ -336,7 +336,7 @@ static int16_t _ArcTan2(int32_t x, int32_t y, int32_t* r1, int32_t* cycles) {
 	}
 	if (y >= 0) {
 		if (x >= 0) {
-			if (x >= y) {
+			if (x >= y && x != 0) {
 				return _ArcTan((y << 14) / x, r1, NULL, cycles);
 			}
 		} else if (-x >= y) {
