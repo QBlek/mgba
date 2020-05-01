@@ -458,7 +458,7 @@ void CoreController::rewind(int states) {
 }
 
 void CoreController::setFastForward(bool enable) {
-	if (m_fastForward == enable) {
+	if (!!m_fastForward == enable) {
 		return;
 	}
 	m_fastForward = enable;
@@ -467,7 +467,7 @@ void CoreController::setFastForward(bool enable) {
 }
 
 void CoreController::forceFastForward(bool enable) {
-	if (m_fastForwardForced == enable) {
+	if (!!m_fastForwardForced == enable) {
 		return;
 	}
 	m_fastForwardForced = enable;
