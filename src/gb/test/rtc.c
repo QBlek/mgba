@@ -45,6 +45,7 @@ M_TEST_SUITE_SETUP(GBRTC) {
 	test->nextTime = 0;
 	if (!test->core) {
 		*state = NULL;
+		free(test);
 		return -1;
 	}
 	test->core->init(test->core);
