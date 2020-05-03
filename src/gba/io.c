@@ -733,7 +733,7 @@ uint16_t GBAIORead(struct GBA* gba, uint32_t address) {
 				}
 			}
 		}
-		uint16_t input = 0;
+		
 		if (gba->keyCallback) {
 			input = gba->keyCallback->readKeys(gba->keyCallback);
 			if (gba->keySource) {
