@@ -944,11 +944,10 @@ static bool _parse(struct CLIDebugger* debugger, const char* line, size_t count)
 
 static void _commandLine(struct mDebugger* debugger) {
 	struct CLIDebugger* cliDebugger = (struct CLIDebugger*) debugger;
-	const char* line;
 		size_t len;
 	_printStatus(cliDebugger, 0);
 	while (debugger->state == DEBUGGER_PAUSED) {
-		line = cliDebugger->backend->readline(cliDebugger->backend, &len);
+		const char* line = cliDebugger->backend->readline(cliDebugger->backend, &len);
 		if (!line || len == 0) {
 			debugger->state = DEBUGGER_SHUTDOWN;
 			return;
