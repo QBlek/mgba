@@ -22,7 +22,6 @@ class _ARMRegisters:
 
 
 class ARMCore:
-    """Related with arm.c"""
     def __init__(self, native):
         self._native = ffi.cast("struct ARMCore*", native)
         self.gprs = _ARMRegisters(self)
