@@ -897,7 +897,7 @@ static void _updateChannel3(struct mTiming* timing, void* user, uint32_t cyclesL
 			end = 0;
 		}
 		uint32_t bitsCarry = ch->wavedata32[end] & 0x000000F0;
-		uint32_t bits;
+		
 		for (i = start; i >= end; --i) {
 			bits = ch->wavedata32[i] & 0x000000F0;
 			ch->wavedata32[i] = ((ch->wavedata32[i] & 0x0F0F0F0F) << 4) | ((ch->wavedata32[i] & 0xF0F0F000) >> 12);
