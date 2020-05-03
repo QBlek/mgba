@@ -200,15 +200,7 @@ char* utf16to8(const uint16_t* utf16, size_t length) {
 		if (utf8Length < utf8TotalBytes) {
 			memcpy(offset, buffer, bytes);
 			offset += bytes;
-		} else if (!utf8) {
-			utf8 = malloc(length);
-			if (!utf8) {
-				return 0;
-			}
-			utf8TotalBytes = length;
-			memcpy(utf8, buffer, bytes);
-			offset = utf8 + bytes;
-		} else if (utf8Length >= utf8TotalBytes) {
+		} else {
 			ptrdiff_t o = offset - utf8;
 			char* newUTF8 = realloc(utf8, utf8TotalBytes * 2);
 			offset = o + newUTF8;
