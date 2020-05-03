@@ -561,7 +561,7 @@ DEFINE_MULTIPLY_INSTRUCTION_2_ARM(UMULL,
 DEFINE_LOAD_STORE_INSTRUCTION_ARM(LDR, LOAD, cpu->gprs[rd] = cpu->memory.load32(cpu, address, &currentCycles); ARM_LOAD_POST_BODY;)
 DEFINE_LOAD_STORE_INSTRUCTION_ARM(LDRB, LOAD, cpu->gprs[rd] = cpu->memory.load8(cpu, address, &currentCycles); ARM_LOAD_POST_BODY;)
 DEFINE_LOAD_STORE_MODE_3_INSTRUCTION_ARM(LDRH, LOAD, cpu->gprs[rd] = cpu->memory.load16(cpu, address, &currentCycles); ARM_LOAD_POST_BODY;)
-DEFINE_LOAD_STORE_MODE_3_INSTRUCTION_ARM(LDRSB, LOAD, cpu->gprs[rd] = ARM_SXT_8(cpu->memory.load8(cpu, address, &currentCycles)); ARM_LOAD_POST_BODY;)
+//DEFINE_LOAD_STORE_MODE_3_INSTRUCTION_ARM(LDRSB, LOAD, cpu->gprs[rd] = ARM_SXT_8(cpu->memory.load8(cpu, address, &currentCycles)); ARM_LOAD_POST_BODY;)
 DEFINE_LOAD_STORE_MODE_3_INSTRUCTION_ARM(LDRSH, LOAD, cpu->gprs[rd] = address & 1 ? ARM_SXT_8(cpu->memory.load16(cpu, address, &currentCycles)) : ARM_SXT_16(cpu->memory.load16(cpu, address, &currentCycles)); ARM_LOAD_POST_BODY;)
 DEFINE_LOAD_STORE_INSTRUCTION_ARM(STR, STORE, cpu->memory.store32(cpu, address, d, &currentCycles); ARM_STORE_POST_BODY;)
 DEFINE_LOAD_STORE_INSTRUCTION_ARM(STRB, STORE, cpu->memory.store8(cpu, address, d, &currentCycles); ARM_STORE_POST_BODY;)
@@ -609,14 +609,14 @@ DEFINE_LOAD_STORE_MULTIPLE_INSTRUCTION_ARM(LDM,
 DEFINE_LOAD_STORE_MULTIPLE_INSTRUCTION_ARM(STM,
 	store,
 	ARM_STORE_POST_BODY;)
-
+/*
 DEFINE_INSTRUCTION_ARM(SWP,
 	int rm = opcode & 0xF;
 	int rd = (opcode >> 12) & 0xF;
 	int rn = (opcode >> 16) & 0xF;
 	int32_t d = cpu->memory.load32(cpu, cpu->gprs[rn], &currentCycles);
 	cpu->memory.store32(cpu, cpu->gprs[rn], cpu->gprs[rm], &currentCycles);
-	cpu->gprs[rd] = d;)
+	cpu->gprs[rd] = d;)*/
 
 DEFINE_INSTRUCTION_ARM(SWPB,
 	int rm = opcode & 0xF;

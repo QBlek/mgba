@@ -183,7 +183,7 @@ bool AssetView::lookupObjGBA(int id, struct ObjInfo* info) {
 	unsigned height = GBAVideoObjSizes[shape * 4 + size][1];
 	unsigned tile = GBAObjAttributesCGetTile(obj->c);
 	unsigned palette = GBAObjAttributesCGetPalette(obj->c);
-	unsigned tileBase = tile;
+	//unsigned tileBase = tile;
 	unsigned paletteSet;
 	unsigned bits;
 	if (GBAObjAttributesAIs256Color(obj->a)) {
@@ -237,7 +237,7 @@ bool AssetView::lookupObjGB(int id, struct ObjInfo* info) {
 	const GB* gb = static_cast<const GB*>(m_controller->thread()->core->board);
 	const GBObj* obj = &gb->video.oam.obj[id];
 
-	unsigned width = 8;
+	//unsigned width = 8;
 	unsigned height = 8;
 	GBRegisterLCDC lcdc = gb->memory.io[REG_LCDC];
 	if (GBRegisterLCDCIsObjSize(lcdc)) {

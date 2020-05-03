@@ -522,7 +522,7 @@ void GBSkipBIOS(struct GB* gb) {
 		cpu->h = 0xC0;
 		cpu->l = 0x60;
 		gb->timer.internalDiv = 0xABC;
-		nextDiv = 4;
+		//nextDiv = 4;
 		break;
 	case GB_MODEL_AGB:
 		cpu->a = 0x11;
@@ -543,7 +543,7 @@ void GBSkipBIOS(struct GB* gb) {
 		cpu->h = 0;
 		cpu->l = 0x7C;
 		gb->timer.internalDiv = 0x1EA;
-		nextDiv = 0xC;
+		//nextDiv = 0xC;
 		break;
 	}
 
