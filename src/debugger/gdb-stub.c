@@ -117,10 +117,9 @@ static void _nak(struct GDBStub* stub) {
 
 static uint32_t _hex2int(const char* hex, int maxDigits) {
 	uint32_t value = 0;
-	uint8_t letter;
 
 	while (maxDigits--) {
-		letter = *hex - '0';
+		uint8_t letter = *hex - '0';
 		if (letter > 9) {
 			letter = *hex - 'a';
 			if (letter > 5) {
@@ -173,12 +172,11 @@ static void _sendMessage(struct GDBStub* stub) {
 	uint8_t checksum = 0;
 	int i = 1;
 	char buffer = stub->outgoing[0];
-	char swap;
 	stub->outgoing[0] = '$';
 	if (buffer) {
 		for (; i < GDB_STUB_MAX_LINE - 5; ++i) {
 			checksum += buffer;
-			swap = stub->outgoing[i];
+			char swap = stub->outgoing[i];
 			stub->outgoing[i] = buffer;
 			buffer = swap;
 			if (!buffer) {

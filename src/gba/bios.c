@@ -182,27 +182,22 @@ static void _RegisterRamReset(struct GBA* gba) {
 static void _BgAffineSet(struct GBA* gba) {
 	struct ARMCore* cpu = gba->cpu;
 	int i = cpu->gprs[2];
-	float ox, oy;
-	float cx, cy;
-	float sx, sy;
-	float theta;
 	int offset = cpu->gprs[0];
 	int destination = cpu->gprs[1];
-	float a, b, c, d;
-	float rx, ry;
 	while (i--) {
 		// [ sx   0  0 ]   [ cos(theta)  -sin(theta)  0 ]   [ 1  0  cx - ox ]   [ A B rx ]
 		// [  0  sy  0 ] * [ sin(theta)   cos(theta)  0 ] * [ 0  1  cy - oy ] = [ C D ry ]
 		// [  0   0  1 ]   [     0            0       1 ]   [ 0  0     1    ]   [ 0 0  1 ]
-		ox = (int32_t) cpu->memory.load32(cpu, offset, 0) / 256.f;
-		oy = (int32_t) cpu->memory.load32(cpu, offset + 4, 0) / 256.f;
-		cx = (int16_t) cpu->memory.load16(cpu, offset + 8, 0);
-		cy = (int16_t) cpu->memory.load16(cpu, offset + 10, 0);
-		sx = (int16_t) cpu->memory.load16(cpu, offset + 12, 0) / 256.f;
-		sy = (int16_t) cpu->memory.load16(cpu, offset + 14, 0) / 256.f;
-		theta = (cpu->memory.load16(cpu, offset + 16, 0) >> 8) / 128.f * M_PI;
+		float ox = (int32_t) cpu->memory.load32(cpu, offset, 0) / 256.f;
+		float oy = (int32_t) cpu->memory.load32(cpu, offset + 4, 0) / 256.f;
+		float cx = (int16_t) cpu->memory.load16(cpu, offset + 8, 0);
+		float cy = (int16_t) cpu->memory.load16(cpu, offset + 10, 0);
+		float sx = (int16_t) cpu->memory.load16(cpu, offset + 12, 0) / 256.f;
+		float sy = (int16_t) cpu->memory.load16(cpu, offset + 14, 0) / 256.f;
+		float theta = (cpu->memory.load16(cpu, offset + 16, 0) >> 8) / 128.f * M_PI;
 		offset += 20;
 		// Rotation
+		float a, b, c, d;
 		a = d = cosf(theta);
 		b = c = sinf(theta);
 		// Scale
@@ -211,8 +206,8 @@ static void _BgAffineSet(struct GBA* gba) {
 		c *= sy;
 		d *= sy;
 		// Translate
-		rx = ox - (a * cx + b * cy);
-		ry = oy - (c * cx + d * cy);
+		float rx = ox - (a * cx + b * cy);
+		float ry = oy - (c * cx + d * cy);
 		cpu->memory.store16(cpu, destination, a * 256, 0);
 		cpu->memory.store16(cpu, destination + 2, b * 256, 0);
 		cpu->memory.store16(cpu, destination + 4, c * 256, 0);
@@ -361,7 +356,6 @@ static int32_t _Sqrt(uint32_t x, int32_t* cycles) {
 		return 0;
 	}
 	int32_t currentCycles = 15;
-	uint32_t lower;
 	uint32_t upper = x;
 	uint32_t bound = 1;
 	while (bound < upper) {
@@ -373,7 +367,7 @@ static int32_t _Sqrt(uint32_t x, int32_t* cycles) {
 		currentCycles += 6;
 		upper = x;
 		uint32_t accum = 0;
-		lower = bound;
+		uint32_t lower = bound;
 		while (true) {
 			currentCycles += 5;
 			uint32_t oldLower = lower;
@@ -755,13 +749,12 @@ static void _unRl(struct GBA* gba, int width) {
 	int remaining = (cpu->memory.load32(cpu, source & 0xFFFFFFFC, 0) & 0xFFFFFF00) >> 8;
 	int padding = (4 - remaining) & 0x3;
 	// We assume the signature byte (0x30) is correct
-	int blockheader;
 	int block;
 	source += 4;
 	uint32_t dest = cpu->gprs[1];
 	int halfword = 0;
 	while (remaining > 0) {
-		blockheader = cpu->memory.load8(cpu, source, 0);
+		int blockheader = cpu->memory.load8(cpu, source, 0);
 		++source;
 		if (blockheader & 0x80) {
 			// Compressed

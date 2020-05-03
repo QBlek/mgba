@@ -117,12 +117,10 @@ void GBAAudioScheduleFifoDma(struct GBAAudio* audio, int number, struct GBADMA* 
 		mLOG(GBA_AUDIO, GAME_ERROR, "Invalid FIFO destination: 0x%08X", info->dest);
 		return;
 	}
-	uint32_t source = info->source;
-	uint32_t magic[2] = {
-		audio->p->cpu->memory.load32(audio->p->cpu, source - 0x350, NULL),
-		audio->p->cpu->memory.load32(audio->p->cpu, source - 0x980, NULL)
-	};
+	uint32_t source = info->source;	
 	if (audio->mixer) {
+		uint32_t magic[2] = { audio->p->cpu->memory.load32(audio->p->cpu, source - 0x350, NULL),
+			                  audio->p->cpu->memory.load32(audio->p->cpu, source - 0x980, NULL) };
 		if (magic[0] - MP2K_MAGIC <= MP2K_LOCK_MAX) {
 			audio->mixer->engage(audio->mixer, source - 0x350);
 		} else if (magic[1] - MP2K_MAGIC <= MP2K_LOCK_MAX) {

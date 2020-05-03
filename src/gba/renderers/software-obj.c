@@ -378,12 +378,10 @@ void GBAVideoSoftwareRendererPostprocessSprite(struct GBAVideoSoftwareRenderer* 
 	uint32_t* pixel = &renderer->row[renderer->start];
 	uint32_t flags = FLAG_TARGET_2 * renderer->target2Obj;
 
-	int objwinSlowPath = GBARegisterDISPCNTIsObjwinEnable(renderer->dispcnt);
-	bool objwinDisable = false;
-	bool objwinOnly = false;
+	int objwinSlowPath = GBARegisterDISPCNTIsObjwinEnable(renderer->dispcnt);	
 	if (objwinSlowPath) {
-		objwinDisable = !GBAWindowControlIsObjEnable(renderer->objwin.packed);
-		objwinOnly = !objwinDisable && !GBAWindowControlIsObjEnable(renderer->currentWindow.packed);
+		bool objwinDisable = !GBAWindowControlIsObjEnable(renderer->objwin.packed);
+		bool objwinOnly = !objwinDisable && !GBAWindowControlIsObjEnable(renderer->currentWindow.packed);
 		if (objwinDisable && !GBAWindowControlIsObjEnable(renderer->currentWindow.packed)) {
 			return;
 		}

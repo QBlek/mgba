@@ -110,7 +110,6 @@ bool NoIntroDBLoadClrMamePro(struct NoIntroDB* db, struct VFile* vf) {
 			break;
 		}
 		ssize_t i;
-		const char* token;
 		for (i = 0; i < bytesRead; ++i) {
 			while (isspace((int) line[i]) && i < bytesRead) {
 				++i;
@@ -118,7 +117,7 @@ bool NoIntroDBLoadClrMamePro(struct NoIntroDB* db, struct VFile* vf) {
 			if (i >= bytesRead) {
 				break;
 			}
-			token = &line[i];
+			const char* token = &line[i];
 			while (!isspace((int) line[i]) && i < bytesRead) {
 				++i;
 			}
